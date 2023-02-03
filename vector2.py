@@ -11,6 +11,8 @@ class Vector2:
     def __iter__(self):
         yield self.X
         yield self.Y
+    def __str__(self):
+        return str(tuple(self))
     def magnitude(self):
         TOTAL_DISTANCE = sqrt((self.X * self.X) + (self.Y * self.Y))
         return TOTAL_DISTANCE
