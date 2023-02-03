@@ -20,6 +20,3 @@ class Vector2:
         DIR_X = self.X - secondVector.X
         DIR_Y = self.Y - secondVector.Y
         return atan(DIR_Y/DIR_X)
-        
-if __name__ == "__main__":
-    pass
