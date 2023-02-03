@@ -8,7 +8,10 @@ class Vector2:
         NEW_X = secondVector.X - self.X
         NEW_Y = secondVector.Y - self.Y
         return Vector2(NEW_X, NEW_Y)
-    def mag(self, secondVector):
+    def __iter__(self):
+        yield self.X
+        yield self.Y
+    def magnitude(self):
         TOTAL_DISTANCE = sqrt((self.X * self.X) + (self.Y * self.Y))
         return TOTAL_DISTANCE
     def dir(self, secondVector):
