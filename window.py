@@ -37,22 +37,28 @@ class Window(construct.GameObject):
 
 # test
 
-MYSQUARE = construct.Sprite()
-MYSQUARE.POSITION = vector2.Vector2(30, 30)
-MYSQUARE.SCALE = vector2.Vector2(100, 100)
-MYSQUARE.VELOCITY = vector2.Vector2(0, 0)
-MYSQUARE.WASD_HOOK = True
-
-LAST_JUMP = 0
-
-def game(SCALE, FRAME, FPS):
-    KEY_PRESSES = pygame.key.get_pressed()
-    if KEY_PRESSES[pygame.K_SPACE] == 1 and time.time():
-        MYSQUARE.VELOCITY.Y -= 10
-    MYSQUARE.VELOCITY.Y += 3.2
-    if MYSQUARE.POSITION.Y + MYSQUARE.SCALE.Y > SCALE.Y and MYSQUARE.VELOCITY.Y >= 0:
-        MYSQUARE.VELOCITY.Y = 0
-    return (MYSQUARE,)
-
 if __name__ == "__main__":
+    MYSQUARE = construct.Sprite()
+    MYSQUARE.POSITION = vector2.Vector2(30, 30)
+    MYSQUARE.SCALE = vector2.Vector2(100, 100)
+    MYSQUARE.VELOCITY = vector2.Vector2(0, 0)
+    MYSQUARE.WASD_HOOK = True
+
+    LAST_JUMP = 0
+
+    def game(SCALE, FRAME, FPS):
+        global LAST_JUMP
+
+        KEY_PRESSES = pygame.key.get_pressed()
+        if KEY_PRESSES[pygame.K_SPACE] == 1 and FRAME - LAST_JUMP > 0.5:
+            MYSQUARE.VELOCITY.Y -= 40
+            LAST_JUMP = FRAME
+        if MYSQUARE.POSITION.Y + MYSQUARE.SCALE.Y >= SCALE.Y and MYSQUARE.VELOCITY.Y >= 0:
+            MYSQUARE.VELOCITY.Y = 0
+            MYSQUARE.POSITION = Vector2(MYSQUARE.POSITION.X, SCALE.Y - MYSQUARE.SCALE.Y)
+        else:
+            MYSQUARE.VELOCITY.Y += 3.2
+
+        return (MYSQUARE,)
+
     Window().runtime(game)
